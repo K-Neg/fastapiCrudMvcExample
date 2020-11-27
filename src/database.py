@@ -21,14 +21,18 @@ def car_db_to_dict(car) -> dict:
 
 async def add_car(car_data: dict) -> dict:
     car = await parked.insert_one(car_data)
-    new_car = await parked.find_one({"_id": parked.inserted_id})
+    #new_car = await parked.find_one({"_id": parked.inserted_id})
+    id="5fbfb5fd42d74d1e23860abf"
+    new_car = await parked.find_one({"_id":ObjectId(id)})
     return car_db_to_dict(new_car)
+    
 
 
 async def retrieve_all_cars():
     cars = []
     # a error can occur over here due to 'asyncness'
     async for car in parked.find():
+        print(car)
         cars.append(car_db_to_dict(car))
     return cars
 

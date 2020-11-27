@@ -11,7 +11,7 @@ class CarSchema(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "owner": "Mauricio",
+                "owner": "Jorjola",
                 "manufacturer": "Ferrari",
                 "year": 2,
             }

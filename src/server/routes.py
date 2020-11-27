@@ -63,11 +63,8 @@ async def create_item(item: Item):
 @router.post("/post", response_description="A car has been created")
 #async def add_car_ROUTE(car: Carro):
 async def add_car_ROUTE(car: CarSchema = Body(...)):
-    print('pre Enc')
     car = jsonable_encoder(car)
-    print('pos enc')
     new_car = await add_car(car)
-    print("after new car")
     return ResponseModel(new_car, "Car created successfully.")
 
 
