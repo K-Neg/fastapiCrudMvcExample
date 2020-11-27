@@ -23,8 +23,11 @@ async def add_car(car_data: dict) -> dict:
     car = await parked.insert_one(car_data)
     #new_car = await parked.find_one({"_id": parked.inserted_id})
     id="5fbfb5fd42d74d1e23860abf"
-    new_car = await parked.find_one({"_id":ObjectId(id)})
-    return car_db_to_dict(new_car)
+    #new_car = await parked.find_one({"_id":ObjectId(id)})
+    #parked.find({}).sort({_id:-1}).limit(1)
+    new_car = await parked.find_one({"_id":-1})
+    if new_car is not None:
+        return car_db_to_dict(new_car)
     
 
 
