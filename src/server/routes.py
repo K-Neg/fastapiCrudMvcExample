@@ -5,8 +5,8 @@ from typing import Optional
 from pydantic import BaseModel
 import shutil
 from typing import List
-from PIL import Image
 import PIL
+#from PIL import Image
 import uvicorn
 
 from src.database import (
@@ -84,10 +84,10 @@ async def create_upload_files(files: List[UploadFile] = File(...)):
     for file in files:
         with open("receive.png", "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
-    return HTMLResponse(content=content)
+    return FileResponse ("src/templates/upload_image.html")
 
-@router.get("/home", response_class=HTMLResponse)
-async def main():
+@router.get("/upload_page", response_class=HTMLResponse)
+async def uppage():
     #return HTMLResponse(content=content)
     return FileResponse ("src/templates/upload_image.html")
 
