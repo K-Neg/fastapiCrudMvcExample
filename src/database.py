@@ -18,20 +18,12 @@ def car_db_to_dict(car) -> dict:
         "year": car["year"],
     }
 
-
-async def add_car(car_data: dict) -> dict:
+async def car_add(car_data: dict) -> dict:
     car = await parked.insert_one(car_data)
-    #new_car = await parked.find_one({"_id": parked.inserted_id})
-    id="5fbfb5fd42d74d1e23860abf"
-    #new_car = await parked.find_one({"_id":ObjectId(id)})
-    #parked.find({}).sort({_id:-1}).limit(1)
-    new_car = await parked.find_one({"_id":-1})
-    if new_car is not None:
-        return car_db_to_dict(new_car)
+    new_car = await parked.find_one({"_id": car.inserted_id})
+    return car_db_to_dict(new_car)
     
-
-
-async def retrieve_all_cars():
+async def all_cars_retrieve():
     cars = []
     # a error can occur over here due to 'asyncness'
     async for car in parked.find():
@@ -41,14 +33,14 @@ async def retrieve_all_cars():
 
 
 # get a single car
-async def retrieve_single_car(id: str) -> dict:
+async def single_car_retrieve(id: str) -> dict:
     car = await parked.find_one({"_id": ObjectId(id)})
     if car:
         return car_db_to_dict(car)
 
 
 # Update a specific CAR
-async def update_car(id: str, data: dict):
+async def car_update(id: str, data: dict):
     if len(data) < 1:
         return False
     car = await parked.find_one({"_id": ObjectId(id)})
@@ -60,7 +52,7 @@ async def update_car(id: str, data: dict):
 
 
 # Delete a car
-async def delete_car(id: str):
+async def car_delete(id: str):
     car = await parked.find_one({"_id": ObjectId(id)})
     if car:
         await parked.delete_one({"_id": ObjectId(id)})
